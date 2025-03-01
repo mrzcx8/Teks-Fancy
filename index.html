@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="ms">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buat Teks Fancy untuk Media Sosial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Lobster&family=Pacifico&family=Montserrat&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Roboto', sans-serif;
             background-color: #f4f4f9;
             margin: 0;
             padding: 0;
@@ -21,7 +22,7 @@
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 350px;
+            width: 400px;
             text-align: center;
         }
 
@@ -32,17 +33,18 @@
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            text-align: left;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: bold;
             color: #555;
         }
 
-        input[type="text"] {
+        input[type="text"], textarea {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -52,17 +54,13 @@
             transition: border-color 0.3s ease;
         }
 
-        input[type="text"]:focus {
+        input[type="text"]:focus, textarea:focus {
             border-color: #007bff;
         }
 
-        .style-options {
-            margin-bottom: 20px;
-        }
-
-        select {
+        select, input[type="color"], input[type="range"] {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             border: 1px solid #ccc;
             border-radius: 6px;
             font-size: 16px;
@@ -70,7 +68,7 @@
             transition: border-color 0.3s ease;
         }
 
-        select:focus {
+        select:focus, input[type="color"]:focus, input[type="range"]:focus {
             border-color: #007bff;
         }
 
@@ -92,9 +90,10 @@
             border-radius: 6px;
             background-color: #f9f9f9;
             margin-bottom: 15px;
+            white-space: pre-wrap; /* Untuk multiple lines */
         }
 
-        .copy-button {
+        .copy-button, .share-button {
             background-color: #007bff;
             color: #fff;
             border: none;
@@ -103,15 +102,36 @@
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin: 5px;
         }
 
-        .copy-button:hover {
+        .copy-button:hover, .share-button:hover {
             background-color: #0056b3;
         }
 
-        .copy-button:active {
+        .copy-button:active, .share-button:active {
             background-color: #004080;
         }
+
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .fade { animation: fadeIn 1s ease-in-out; }
+        .bounce { animation: bounce 0.5s infinite; }
+        .rotate { animation: rotate 2s linear infinite; }
     </style>
 </head>
 <body>
@@ -119,117 +139,100 @@
         <h1>Buat Teks Fancy untuk Media Sosial</h1>
         <div class="input-group">
             <label for="text-input">Masukkan Teks:</label>
-            <input type="text" id="text-input" placeholder="Ketik teks Anda di sini...">
+            <textarea id="text-input" rows="3" placeholder="Taip teks anda di sini..."></textarea>
         </div>
-        <div class="style-options">
-            <label for="style-select">Pilih Gaya Teks:</label>
-            <select id="style-select">
-                <option value="normal">Normal</option>
-                <option value="bold">Bold</option>
-                <option value="italic">Italic</option>
-                <option value="underline">Underline</option>
-                <option value="shadow">Shadow</option>
-                <option value="gradient">Gradient</option>
-                <option value="capitalize">Capitalize</option>
-                <option value="uppercase">UPPERCASE</option>
-                <option value="lowercase">lowercase</option>
-                <option value="strikethrough">Strikethrough</option>
-                <option value="outline">Outline</option>
-                <option value="3d">3D Text</option>
-                <option value="neon">Neon Glow</option>
-                <option value="fire">Fire Text</option>
+        <div class="input-group">
+            <label for="font-select">Pilih Font:</label>
+            <select id="font-select">
+                <option value="Roboto">Roboto</option>
+                <option value="Lobster">Lobster</option>
+                <option value="Pacifico">Pacifico</option>
+                <option value="Montserrat">Montserrat</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="text-color">Pilih Warna Teks:</label>
+            <input type="color" id="text-color" value="#000000">
+        </div>
+        <div class="input-group">
+            <label for="animation-select">Pilih Animasi:</label>
+            <select id="animation-select">
+                <option value="none">Tiada</option>
+                <option value="fade">Fade In</option>
+                <option value="bounce">Bounce</option>
+                <option value="rotate">Rotate</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="emoji-select">Tambahkan Emoji:</label>
+            <select id="emoji-select">
+                <option value="">Pilih Emoji</option>
+                <option value="😊">😊</option>
+                <option value="❤️">❤️</option>
+                <option value="🔥">🔥</option>
+                <option value="🌟">🌟</option>
             </select>
         </div>
         <div class="output">
             <h2>Hasil Teks Fancy:</h2>
-            <p id="fancy-text">Teks Anda akan muncul di sini...</p>
-            <button class="copy-button" onclick="copyText()">Salin Teks</button>
+            <p id="fancy-text">Teks anda akan muncul di sini...</p>
+            <button class="copy-button" onclick="salinTeks()">Salin Teks</button>
+            <button class="share-button" onclick="kongsikanTeks()">Kongsi</button>
         </div>
     </div>
     <script>
-        document.getElementById('text-input').addEventListener('input', updateFancyText);
-        document.getElementById('style-select').addEventListener('change', updateFancyText);
+        const textInput = document.getElementById('text-input');
+        const fontSelect = document.getElementById('font-select');
+        const textColor = document.getElementById('text-color');
+        const animationSelect = document.getElementById('animation-select');
+        const emojiSelect = document.getElementById('emoji-select');
+        const fancyText = document.getElementById('fancy-text');
 
-        function updateFancyText() {
-            const textInput = document.getElementById('text-input').value;
-            const styleSelect = document.getElementById('style-select').value;
-            const fancyText = document.getElementById('fancy-text');
+        // Kemas kini teks fancy
+        function kemasKiniTeksFancy() {
+            let text = textInput.value;
 
-            fancyText.textContent = textInput;
+            // Tambah emoji jika dipilih
+            if (emojiSelect.value) {
+                text += ` ${emojiSelect.value}`;
+            }
 
-            // Reset semua gaya
-            fancyText.style.fontWeight = 'normal';
-            fancyText.style.fontStyle = 'normal';
-            fancyText.style.textDecoration = 'none';
-            fancyText.style.textShadow = 'none';
-            fancyText.style.background = 'none';
-            fancyText.style.textTransform = 'none';
-            fancyText.style.color = '#333';
-            fancyText.style.webkitTextStroke = 'none';
+            fancyText.textContent = text;
+            fancyText.style.fontFamily = fontSelect.value;
+            fancyText.style.color = textColor.value;
 
-            switch (styleSelect) {
-                case 'normal':
-                    break;
-                case 'bold':
-                    fancyText.style.fontWeight = 'bold';
-                    break;
-                case 'italic':
-                    fancyText.style.fontStyle = 'italic';
-                    break;
-                case 'underline':
-                    fancyText.style.textDecoration = 'underline';
-                    break;
-                case 'shadow':
-                    fancyText.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)';
-                    break;
-                case 'gradient':
-                    fancyText.style.background = 'linear-gradient(90deg, #ff7e5f, #feb47b)';
-                    fancyText.style.webkitBackgroundClip = 'text';
-                    fancyText.style.webkitTextFillColor = 'transparent';
-                    break;
-                case 'capitalize':
-                    fancyText.style.textTransform = 'capitalize';
-                    break;
-                case 'uppercase':
-                    fancyText.style.textTransform = 'uppercase';
-                    break;
-                case 'lowercase':
-                    fancyText.style.textTransform = 'lowercase';
-                    break;
-                case 'strikethrough':
-                    fancyText.style.textDecoration = 'line-through';
-                    break;
-                case 'outline':
-                    fancyText.style.webkitTextStroke = '1px #333';
-                    fancyText.style.color = 'transparent';
-                    break;
-                case '3d':
-                    fancyText.style.textShadow = '1px 1px 0 #ccc, 2px 2px 0 #bbb, 3px 3px 0 #aaa';
-                    break;
-                case 'neon':
-                    fancyText.style.textShadow = '0 0 5px #00fffb, 0 0 10px #00fffb, 0 0 20px #00fffb';
-                    fancyText.style.color = '#00fffb';
-                    break;
-                case 'fire':
-                    fancyText.style.background = 'linear-gradient(45deg, #ff8a00, #e52e71)';
-                    fancyText.style.webkitBackgroundClip = 'text';
-                    fancyText.style.webkitTextFillColor = 'transparent';
-                    fancyText.style.textShadow = '0 0 5px #ff8a00, 0 0 10px #ff8a00';
-                    break;
+            // Reset animasi
+            fancyText.classList.remove('fade', 'bounce', 'rotate');
+            if (animationSelect.value !== 'none') {
+                fancyText.classList.add(animationSelect.value);
             }
         }
 
-        function copyText() {
-            const fancyText = document.getElementById('fancy-text');
-            const textToCopy = fancyText.textContent;
+        // Event listeners
+        textInput.addEventListener('input', kemasKiniTeksFancy);
+        fontSelect.addEventListener('change', kemasKiniTeksFancy);
+        textColor.addEventListener('input', kemasKiniTeksFancy);
+        animationSelect.addEventListener('change', kemasKiniTeksFancy);
+        emojiSelect.addEventListener('change', kemasKiniTeksFancy);
 
-            navigator.clipboard.writeText(textToCopy)
-                .then(() => {
-                    alert('Teks berhasil disalin!');
-                })
-                .catch(() => {
-                    alert('Gagal menyalin teks.');
-                });
+        // Salin teks
+        function salinTeks() {
+            navigator.clipboard.writeText(fancyText.textContent)
+                .then(() => alert('Teks berjaya disalin!'))
+                .catch(() => alert('Gagal menyalin teks.'));
+        }
+
+        // Kongsi teks
+        function kongsikanTeks() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Teks Fancy',
+                    text: fancyText.textContent,
+                }).then(() => console.log('Berjaya dikongsi'))
+                  .catch(() => console.log('Gagal dikongsi'));
+            } else {
+                alert('Fitur kongsi tidak disokong dalam pelayar ini.');
+            }
         }
     </script>
 </body>
