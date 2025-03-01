@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buat Teks Fancy untuk Media Sosial</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Lobster&family=Pacifico&family=Montserrat&display=swap" rel="stylesheet">
+    <title>Penjana Teks Fancy</title>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -58,7 +57,7 @@
             border-color: #007bff;
         }
 
-        select, input[type="color"], input[type="range"] {
+        select {
             width: 100%;
             padding: 8px;
             border: 1px solid #ccc;
@@ -68,7 +67,7 @@
             transition: border-color 0.3s ease;
         }
 
-        select:focus, input[type="color"]:focus, input[type="range"]:focus {
+        select:focus {
             border-color: #007bff;
         }
 
@@ -90,7 +89,7 @@
             border-radius: 6px;
             background-color: #f9f9f9;
             margin-bottom: 15px;
-            white-space: pre-wrap; /* Untuk multiple lines */
+            white-space: pre-wrap;
         }
 
         .copy-button, .share-button {
@@ -112,65 +111,28 @@
         .copy-button:active, .share-button:active {
             background-color: #004080;
         }
-
-        /* Animasi */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .fade { animation: fadeIn 1s ease-in-out; }
-        .bounce { animation: bounce 0.5s infinite; }
-        .rotate { animation: rotate 2s linear infinite; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Buat Teks Fancy untuk Media Sosial</h1>
+        <h1>Penjana Teks Fancy</h1>
         <div class="input-group">
             <label for="text-input">Masukkan Teks:</label>
             <textarea id="text-input" rows="3" placeholder="Taip teks anda di sini..."></textarea>
         </div>
         <div class="input-group">
-            <label for="font-select">Pilih Font:</label>
-            <select id="font-select">
-                <option value="Roboto">Roboto</option>
-                <option value="Lobster">Lobster</option>
-                <option value="Pacifico">Pacifico</option>
-                <option value="Montserrat">Montserrat</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label for="text-color">Pilih Warna Teks:</label>
-            <input type="color" id="text-color" value="#000000">
-        </div>
-        <div class="input-group">
-            <label for="animation-select">Pilih Animasi:</label>
-            <select id="animation-select">
-                <option value="none">Tiada</option>
-                <option value="fade">Fade In</option>
-                <option value="bounce">Bounce</option>
-                <option value="rotate">Rotate</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label for="emoji-select">Tambahkan Emoji:</label>
-            <select id="emoji-select">
-                <option value="">Pilih Emoji</option>
-                <option value="😊">😊</option>
-                <option value="❤️">❤️</option>
-                <option value="🔥">🔥</option>
-                <option value="🌟">🌟</option>
+            <label for="style-select">Pilih Gaya Teks:</label>
+            <select id="style-select">
+                <option value="normal">Normal</option>
+                <option value="bold">Bold (𝔹𝕠𝕝𝕕)</option>
+                <option value="italic">Italic (𝘐𝘵𝘢𝘭𝘪𝘤)</option>
+                <option value="cursive">Cursive (𝓒𝓾𝓻𝓼𝓲𝓿𝓮)</option>
+                <option value="strikethrough">Strikethrough (̶S̶t̶r̶i̶k̶e̶t̶h̶r̶o̶u̶g̶h̶)</option>
+                <option value="smallcaps">Small Caps (sᴍᴀʟʟ ᴄᴀᴘs)</option>
+                <option value="upsidedown">Upside Down (ɥsᴉʅʞǝʇ)</option>
+                <option value="square">Square (🅂🅀🅄🄰🅁🄴)</option>
+                <option value="circle">Circle (ⓒⓘⓡⓒⓛⓔ)</option>
+                <option value="gothic">Gothic (𝔊𝔬𝔱𝔥𝔦𝔠)</option>
             </select>
         </div>
         <div class="output">
@@ -182,38 +144,102 @@
     </div>
     <script>
         const textInput = document.getElementById('text-input');
-        const fontSelect = document.getElementById('font-select');
-        const textColor = document.getElementById('text-color');
-        const animationSelect = document.getElementById('animation-select');
-        const emojiSelect = document.getElementById('emoji-select');
+        const styleSelect = document.getElementById('style-select');
         const fancyText = document.getElementById('fancy-text');
+
+        // Fungsi untuk menukar teks biasa ke teks fancy Unicode
+        function tukarKeUnicode(teks, gaya) {
+            const unicodeMap = {
+                bold: {
+                    a: '𝖺', b: '𝖻', c: '𝖼', d: '𝖽', e: '𝖾', f: '𝖿', g: '𝗀', h: '𝗁', i: '𝗂', j: '𝗃',
+                    k: '𝗄', l: '𝗅', m: '𝗆', n: '𝗇', o: '𝗈', p: '𝗉', q: '𝗊', r: '𝗋', s: '𝗌', t: '𝗍',
+                    u: '𝗎', v: '𝗏', w: '𝗐', x: '𝗑', y: '𝗒', z: '𝗓',
+                    A: '𝖠', B: '𝖡', C: '𝖢', D: '𝖣', E: '𝖤', F: '𝖥', G: '𝖦', H: '𝖧', I: '𝖨', J: '𝖩',
+                    K: '𝖪', L: '𝖫', M: '𝖬', N: '𝖭', O: '𝖮', P: '𝖯', Q: '𝖰', R: '𝖱', S: '𝖲', T: '𝖳',
+                    U: '𝖴', V: '𝖵', W: '𝖶', X: '𝖷', Y: '𝖸', Z: '𝖹'
+                },
+                italic: {
+                    a: '𝘢', b: '𝘣', c: '𝘤', d: '𝘥', e: '𝘦', f: '𝘧', g: '𝘨', h: '𝘩', i: '𝘪', j: '𝘫',
+                    k: '𝘬', l: '𝘭', m: '𝘮', n: '𝘯', o: '𝘰', p: '𝘱', q: '𝘲', r: '𝘳', s: '𝘴', t: '𝘵',
+                    u: '𝘶', v: '𝘷', w: '𝘸', x: '𝘹', y: '𝘺', z: '𝘻',
+                    A: '𝘈', B: '𝘉', C: '𝘊', D: '𝘋', E: '𝘌', F: '𝘍', G: '𝘎', H: '𝘏', I: '𝘐', J: '𝘑',
+                    K: '𝘒', L: '𝘓', M: '𝘔', N: '𝘕', O: '𝘖', P: '𝘗', Q: '𝘘', R: '𝘙', S: '𝘚', T: '𝘛',
+                    U: '𝘜', V: '𝘝', W: '𝘞', X: '𝘟', Y: '𝘠', Z: '𝘡'
+                },
+                cursive: {
+                    a: '𝒶', b: '𝒷', c: '𝒸', d: '𝒹', e: '𝑒', f: '𝒻', g: '𝑔', h: '𝒽', i: '𝒾', j: '𝒿',
+                    k: '𝓀', l: '𝓁', m: '𝓂', n: '𝓃', o: '𝑜', p: '𝓅', q: '𝓆', r: '𝓇', s: '𝓈', t: '𝓉',
+                    u: '𝓊', v: '𝓋', w: '𝓌', x: '𝓍', y: '𝓎', z: '𝓏',
+                    A: '𝒜', B: 'ℬ', C: '𝒞', D: '𝒟', E: 'ℰ', F: 'ℱ', G: '𝒢', H: 'ℋ', I: 'ℐ', J: '𝒥',
+                    K: '𝒦', L: 'ℒ', M: 'ℳ', N: '𝒩', O: '𝒪', P: '𝒫', Q: '𝒬', R: 'ℛ', S: '𝒮', T: '𝒯',
+                    U: '𝒰', V: '𝒱', W: '𝒲', X: '𝒳', Y: '𝒴', Z: '𝒵'
+                },
+                strikethrough: {
+                    a: 'a̶', b: 'b̶', c: 'c̶', d: 'd̶', e: 'e̶', f: 'f̶', g: 'g̶', h: 'h̶', i: 'i̶', j: 'j̶',
+                    k: 'k̶', l: 'l̶', m: 'm̶', n: 'n̶', o: 'o̶', p: 'p̶', q: 'q̶', r: 'r̶', s: 's̶', t: 't̶',
+                    u: 'u̶', v: 'v̶', w: 'w̶', x: 'x̶', y: 'y̶', z: 'z̶',
+                    A: 'A̶', B: 'B̶', C: 'C̶', D: 'D̶', E: 'E̶', F: 'F̶', G: 'G̶', H: 'H̶', I: 'I̶', J: 'J̶',
+                    K: 'K̶', L: 'L̶', M: 'M̶', N: 'N̶', O: 'O̶', P: 'P̶', Q: 'Q̶', R: 'R̶', S: 'S̶', T: 'T̶',
+                    U: 'U̶', V: 'V̶', W: 'W̶', X: 'X̶', Y: 'Y̶', Z: 'Z̶'
+                },
+                smallcaps: {
+                    a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ғ', g: 'ɢ', h: 'ʜ', i: 'ɪ', j: 'ᴊ',
+                    k: 'ᴋ', l: 'ʟ', m: 'ᴍ', n: 'ɴ', o: 'ᴏ', p: 'ᴘ', q: 'ǫ', r: 'ʀ', s: 's', t: 'ᴛ',
+                    u: 'ᴜ', v: 'ᴠ', w: 'ᴡ', x: 'x', y: 'ʏ', z: 'ᴢ',
+                    A: 'ᴀ', B: 'ʙ', C: 'ᴄ', D: 'ᴅ', E: 'ᴇ', F: 'ғ', G: 'ɢ', H: 'ʜ', I: 'ɪ', J: 'ᴊ',
+                    K: 'ᴋ', L: 'ʟ', M: 'ᴍ', N: 'ɴ', O: 'ᴏ', P: 'ᴘ', Q: 'ǫ', R: 'ʀ', S: 's', T: 'ᴛ',
+                    U: 'ᴜ', V: 'ᴠ', W: 'ᴡ', X: 'x', Y: 'ʏ', Z: 'ᴢ'
+                },
+                upsidedown: {
+                    a: 'ɐ', b: 'q', c: 'ɔ', d: 'p', e: 'ǝ', f: 'ɟ', g: 'ƃ', h: 'ɥ', i: 'ᴉ', j: 'ɾ',
+                    k: 'ʞ', l: 'l', m: 'ɯ', n: 'u', o: 'o', p: 'd', q: 'b', r: 'ɹ', s: 's', t: 'ʇ',
+                    u: 'n', v: 'ʌ', w: 'ʍ', x: 'x', y: 'ʎ', z: 'z',
+                    A: '∀', B: 'q', C: 'Ɔ', D: 'p', E: 'Ǝ', F: 'Ⅎ', G: 'פ', H: 'H', I: 'I', J: 'ſ',
+                    K: 'ʞ', L: '˥', M: 'W', N: 'N', O: 'O', P: 'Ԁ', Q: 'Q', R: 'ɹ', S: 'S', T: '┴',
+                    U: '∩', V: 'Λ', W: 'M', X: 'X', Y: '⅄', Z: 'Z'
+                },
+                square: {
+                    a: '🄰', b: '🄱', c: '🄲', d: '🄳', e: '🄴', f: '🄵', g: '🄶', h: '🄷', i: '🄸', j: '🄹',
+                    k: '🄺', l: '🄻', m: '🄼', n: '🄽', o: '🄾', p: '🄿', q: '🅀', r: '🅁', s: '🅂', t: '🅃',
+                    u: '🅄', v: '🅅', w: '🅆', x: '🅇', y: '🅈', z: '🅉',
+                    A: '🄰', B: '🄱', C: '🄲', D: '🄳', E: '🄴', F: '🄵', G: '🄶', H: '🄷', I: '🄸', J: '🄹',
+                    K: '🄺', L: '🄻', M: '🄼', N: '🄽', O: '🄾', P: '🄿', Q: '🅀', R: '🅁', S: '🅂', T: '🅃',
+                    U: '🅄', V: '🅅', W: '🅆', X: '🅇', Y: '🅈', Z: '🅉'
+                },
+                circle: {
+                    a: 'ⓐ', b: 'ⓑ', c: 'ⓒ', d: 'ⓓ', e: 'ⓔ', f: 'ⓕ', g: 'ⓖ', h: 'ⓗ', i: 'ⓘ', j: 'ⓙ',
+                    k: 'ⓚ', l: 'ⓛ', m: 'ⓜ', n: 'ⓝ', o: 'ⓞ', p: 'ⓟ', q: 'ⓠ', r: 'ⓡ', s: 'ⓢ', t: 'ⓣ',
+                    u: 'ⓤ', v: 'ⓥ', w: 'ⓦ', x: 'ⓧ', y: 'ⓨ', z: 'ⓩ',
+                    A: 'Ⓐ', B: 'Ⓑ', C: 'Ⓒ', D: 'Ⓓ', E: 'Ⓔ', F: 'Ⓕ', G: 'Ⓖ', H: 'Ⓗ', I: 'Ⓘ', J: 'Ⓙ',
+                    K: 'Ⓚ', L: 'Ⓛ', M: 'Ⓜ', N: 'Ⓝ', O: 'Ⓞ', P: 'Ⓟ', Q: 'Ⓠ', R: 'Ⓡ', S: 'Ⓢ', T: 'Ⓣ',
+                    U: 'Ⓤ', V: 'Ⓥ', W: 'Ⓦ', X: 'Ⓧ', Y: 'Ⓨ', Z: 'Ⓩ'
+                },
+                gothic: {
+                    a: '𝔞', b: '𝔟', c: '𝔠', d: '𝔡', e: '𝔢', f: '𝔣', g: '𝔤', h: '𝔥', i: '𝔦', j: '𝔧',
+                    k: '𝔨', l: '𝔩', m: '𝔪', n: '𝔫', o: '𝔬', p: '𝔭', q: '𝔮', r: '𝔯', s: '𝔰', t: '𝔱',
+                    u: '𝔲', v: '𝔳', w: '𝔴', x: '𝔵', y: '𝔶', z: '𝔷',
+                    A: '𝔄', B: '𝔅', C: 'ℭ', D: '𝔇', E: '𝔈', F: '𝔉', G: '𝔊', H: 'ℌ', I: 'ℑ', J: '𝔍',
+                    K: '𝔎', L: '𝔏', M: '𝔐', N: '𝔑', O: '𝔒', P: '𝔓', Q: '𝔔', R: 'ℜ', S: '𝔖', T: '𝔗',
+                    U: '𝔘', V: '𝔙', W: '𝔚', X: '𝔛', Y: '𝔜', Z: 'ℨ'
+                }
+            };
+
+            if (gaya === 'normal') return teks;
+
+            return teks.split('').map(char => unicodeMap[gaya][char] || char).join('');
+        }
 
         // Kemas kini teks fancy
         function kemasKiniTeksFancy() {
-            let text = textInput.value;
-
-            // Tambah emoji jika dipilih
-            if (emojiSelect.value) {
-                text += ` ${emojiSelect.value}`;
-            }
-
-            fancyText.textContent = text;
-            fancyText.style.fontFamily = fontSelect.value;
-            fancyText.style.color = textColor.value;
-
-            // Reset animasi
-            fancyText.classList.remove('fade', 'bounce', 'rotate');
-            if (animationSelect.value !== 'none') {
-                fancyText.classList.add(animationSelect.value);
-            }
+            const teks = textInput.value;
+            const gaya = styleSelect.value;
+            const teksFancy = tukarKeUnicode(teks, gaya);
+            fancyText.textContent = teksFancy;
         }
 
         // Event listeners
         textInput.addEventListener('input', kemasKiniTeksFancy);
-        fontSelect.addEventListener('change', kemasKiniTeksFancy);
-        textColor.addEventListener('input', kemasKiniTeksFancy);
-        animationSelect.addEventListener('change', kemasKiniTeksFancy);
-        emojiSelect.addEventListener('change', kemasKiniTeksFancy);
+        styleSelect.addEventListener('change', kemasKiniTeksFancy);
 
         // Salin teks
         function salinTeks() {
